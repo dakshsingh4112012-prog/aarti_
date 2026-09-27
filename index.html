@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hello Aarti 🌸</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  overflow:hidden;
+  background:linear-gradient(135deg,#fff0f7,#eee8ff,#e5f8ff);
+  color:#503650;
+}
+
+.screen{
+  display:none;
+  min-height:100vh;
+  padding:24px;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  flex-direction:column;
+  position:relative;
+}
+
+.active{
+  display:flex;
+}
+
+.card{
+  width:min(92vw,430px);
+  padding:28px 20px;
+  border-radius:28px;
+  background:#ffffffdf;
+  box-shadow:0 15px 50px #7b5c7b35;
+}
+
+h1{
+  font-size:35px;
+  margin:10px 0 16px;
+}
+
+button{
+  border:0;
+  border-radius:18px;
+  padding:14px 20px;
+  margin:7px;
+  font-size:17px;
+  background:white;
+  box-shadow:0 5px 18px #8b6c8b30;
+}
+
+.teddy{
+  font-size:88px;
+  animation:bob 1.5s infinite;
+}
+
+@keyframes bob{
+  50%{
+    transform:translateY(-8px);
+  }
+}
+
+#magicCanvas{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+}
+
+.walker{
+  position:absolute;
+  bottom:18%;
+  left:-90px;
+  font-size:58px;
+  transition:left 2.2s ease;
+  z-index:2;
+}
+
+.walker.go{
+  left:calc(50% - 30px);
+}
+
+.magicTitle{
+  position:relative;
+  font-size:50px;
+  font-weight:800;
+  opacity:0;
+  text-shadow:0 0 18px white,0 0 30px #d77cff;
+  transition:opacity 1s;
+}
+
+.hint{
+  position:relative;
+  margin-top:90px;
+}
+
+.shayari{
+  font-size:18px;
+  line-height:1.65;
+}
+
+.heart{
+  position:absolute;
+  animation:float 4s linear forwards;
+}
+
+@keyframes float{
+  to{
+    transform:translateY(-110vh) rotate(25deg);
+    opacity:0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SCREEN 1 -->
+
+<section class="screen active" id="s1">
+
+  <div class="card">
+
+    <div>🌸 ✨ 🌸 ✨ 🌸</div>
+
+    <h1>HELLO AARTI 🌸</h1>
+
+    <p>
+      Ek chhota sa surprise tumhara wait kar raha hai ✨
+    </p>
+
+    <button onclick="show('s2')">
+      Tap to Start 💖
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- SCREEN 2 : MOOD -->
+
+<section class="screen" id="s2">
+
+  <div class="card">
+
+    <h1>🌸 How's your mood? 🌸</h1>
+
+    <button onclick="mood('happy')">
+      😊 Happy
+    </button>
+
+    <button onclick="mood('normal')">
+      🙂 Normal
+    </button>
+
+    <button onclick="mood('angry')">
+      😤 Angry
+    </button>
+
+    <button onclick="mood('bad')">
+      😶 Mood Kharab
+    </button>
+
+    <p id="moodText"></p>
+
+    <!-- YE BUTTON TAB TAK RAHEGA JAB TAK USER NEXT NA DABAYE -->
+
+    <button
+      id="moodNext"
+      style="display:none"
+      onclick="show('s3')">
+
+      Next ✨
+
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- SCREEN 3 : TEDDY -->
+
+<section class="screen" id="s3">
+
+  <div class="card">
+
+    <div class="teddy">
+      🧸
+    </div>
+
+    <h1>AARTI</h1>
+
+    <div style="font-size:32px">
+      ❤️ 💖 ❤️
+    </div>
+
+    <p>
+      A little surprise... ✨
+    </p>
+
+    <button onclick="show('s4');startMagic()">
+      Continue ✨
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- SCREEN 4 : MAGIC -->
+
+<section class="screen" id="s4">
+
+  <canvas id="magicCanvas"></canvas>
+
+  <div
+    class="walker"
+    id="walker">
+    🚶‍♂️
+  </div>
+
+  <div
+    class="magicTitle"
+    id="magicTitle">
+    AARTI ✨
+  </div>
+
+  <p class="hint">
+    ✨ Magic is writing your name... ✨
+  </p>
+
+  <button
+    style="position:absolute;bottom:7%;z-index:4"
+    onclick="show('s5')">
+
+    Next 🌙
+
+  </button>
+
+</section>
+
+
+<!-- SCREEN 5 : TUM CHAND HO -->
+
+<section class="screen" id="s5">
+
+  <div class="card">
+
+    <div style="font-size:65px">
+      🌙
+    </div>
+
+    <h1>
+      TUM CHAND HO ✨
+    </h1>
+
+    <p class="shayari">
+
+      Kuch naam bas naam nahi hote,<br>
+
+      woh yaadon ki ek pyari si wajah ban jaate hain…<br><br>
+
+      Aarti, tumhari ek smile ke liye<br>
+
+      ye chhota sa surprise bhi kam laga. 🌸<br><br>
+
+      Tum chand ho—aur chand ko kisi wajah ki
+      zaroorat nahi hoti chamakne ke liye. ✨
+
+    </p>
+
+    <button onclick="show('s6');hearts()">
+
+      Final Surprise ❤️
+
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- SCREEN 6 : FINAL -->
+
+<section class="screen" id="s6">
+
+  <div class="card">
+
+    <div style="font-size:40px">
+      ✨ ❤️ 💖 🌸 💖 ❤️ ✨
+    </div>
+
+    <h1>
+      AARTI 🌸
+    </h1>
+
+    <h2>
+      Tum Chand Ho ✨
+    </h2>
+
+    <p>
+      Hamesha khush rehna ❤️
+    </p>
+
+    <p>
+      — Daksh
+    </p>
+
+    <div style="font-size:34px">
+      ✨ 💖 ❤️ 💖 ✨
+    </div>
+
+  </div>
+
+</section>
+
+
+<script>
+
+/* SCREEN CHANGE */
+
+function show(id){
+
+  document
+    .querySelectorAll('.screen')
+    .forEach(x => x.classList.remove('active'));
+
+  document
+    .getElementById(id)
+    .classList.add('active');
+
+}
+
+
+/* MOOD SYSTEM */
+
+function mood(t){
+
+  let x =
+    document.getElementById('moodText');
+
+  let messages = {
+
+    happy:
+      'Yayyy! 😊 Isi smile ko maintain rakho 🌸',
+
+    normal:
+      'Normal mood bhi chalega 😄 Surprise abhi baaki hai...',
+
+    angry:
+      'Kyun gussa ho? 😭 Thoda sa smile kar lo na 🌸',
+
+    bad:
+      'Mood kharab hai? Chalo topic change — surprise dekho ✨'
+
+  };
+
+  x.textContent = messages[t];
+
+  /*
+    IMPORTANT:
+    Message automatically hide NAHI hoga.
+    Next button manually press karne par hi
+    next screen khulegi.
+  */
+
+  document
+    .getElementById('moodNext')
+    .style.display = 'inline-block';
+
+}
+
+
+/* MAGIC ANIMATION */
+
+let started = false;
+
+function startMagic(){
+
+  if(started) return;
+
+  started = true;
+
+  let canvas =
+    document.getElementById('magicCanvas');
+
+  let ctx =
+    canvas.getContext('2d');
+
+
+  function size(){
+
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+
+  }
+
+  size();
+
+  addEventListener(
+    'resize',
+    size
+  );
+
+
+  let particles = [];
+
+
+  for(let i = 0; i < 90; i++){
+
+    particles.push({
+
+      x:Math.random()*innerWidth,
+
+      y:Math.random()*innerHeight,
+
+      vx:(Math.random()-.5)*1.5,
+
+      vy:1+Math.random()*2,
+
+      s:2+Math.random()*5,
+
+      a:Math.random()*6,
+
+      h:Math.random()*360
+
+    });
+
+  }
+
+
+  function loop(){
+
+    ctx.clearRect(
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
+
+
+    particles.forEach(o => {
+
+      o.y += o.vy;
+
+      o.x += o.vx;
+
+      o.a += .04;
+
+
+      if(o.y > canvas.height + 10){
+
+        o.y = -10;
+
+        o.x =
+          Math.random()*canvas.width;
+
+      }
+
+
+      ctx.save();
+
+      ctx.translate(o.x,o.y);
+
+      ctx.rotate(o.a);
+
+      ctx.fillStyle =
+        `hsl(${o.h},90%,65%)`;
+
+      ctx.fillRect(
+        -o.s/2,
+        -o.s/2,
+        o.s,
+        o.s*1.8
+      );
+
+      ctx.restore();
+
+    });
+
+
+    requestAnimationFrame(loop);
+
+  }
+
+  loop();
+
+
+  /* WALKING CHARACTER */
+
+  setTimeout(() => {
+
+    document
+      .getElementById('walker')
+      .classList.add('go');
+
+  },300);
+
+
+  /* AARTI NAME APPEARS */
+
+  setTimeout(() => {
+
+    document
+      .getElementById('magicTitle')
+      .style.opacity = 1;
+
+  },2300);
+
+}
+
+
+/* FINAL FLOATING HEARTS */
+
+function hearts(){
+
+  for(let i=0;i<28;i++){
+
+    let e =
+      document.createElement('div');
+
+    e.className = 'heart';
+
+    e.textContent =
+      ['❤️','💖','💗','✨','🌸']
+      [Math.floor(Math.random()*5)];
+
+    e.style.left =
+      Math.random()*100+'vw';
+
+    e.style.bottom =
+      '-30px';
+
+    e.style.fontSize =
+      18+Math.random()*25+'px';
+
+    e.style.animationDelay =
+      Math.random()*2+'s';
+
+    document.body.appendChild(e);
+
+
+    setTimeout(() => {
+
+      e.remove();
+
+    },5000);
+
+  }
+
+}
+
+</script>
+
+</body>
+  </html>
