@@ -1,563 +1,787 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Hello Aarti 🌸</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AARTI 🌸 — Sorry Mission</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
-
+*{box-sizing:border-box}
 body{
   margin:0;
   font-family:Arial,sans-serif;
-  overflow:hidden;
-  background:linear-gradient(135deg,#fff0f7,#eee8ff,#e5f8ff);
-  color:#503650;
+  background:#12001f;
+  color:white;
+  overflow-x:hidden;
 }
-
-.screen{
+.app{
+  min-height:100vh;
+  background:
+  radial-gradient(circle at 50% 10%,#ff4d9d55,transparent 30%),
+  linear-gradient(145deg,#12001f,#4b073f,#90075f,#16001f);
+}
+.slide{
   display:none;
   min-height:100vh;
-  padding:24px;
+  padding:70px 20px 35px;
   align-items:center;
   justify-content:center;
-  text-align:center;
   flex-direction:column;
+  text-align:center;
   position:relative;
 }
-
-.active{
+.slide.active{
   display:flex;
+  animation:slideIn .8s ease;
 }
-
-.card{
-  width:min(92vw,430px);
-  padding:28px 20px;
-  border-radius:28px;
-  background:#ffffffdf;
-  box-shadow:0 15px 50px #7b5c7b35;
+@keyframes slideIn{
+  from{opacity:0;transform:translateX(70px) scale(.95)}
+  to{opacity:1;transform:none}
 }
-
-h1{
-  font-size:35px;
-  margin:10px 0 16px;
+.brand{
+  position:absolute;
+  top:18px;
+  width:100%;
+  font-size:24px;
+  font-weight:900;
+  color:#ffacd9;
 }
-
-button{
+.title{
+  font-size:clamp(42px,11vw,75px);
+  font-weight:1000;
+  line-height:.9;
+  text-shadow:0 6px 25px #000;
+}
+.pink{color:#ff78c2}
+h2{font-size:clamp(28px,7vw,44px)}
+p{
+  max-width:580px;
+  font-size:17px;
+  line-height:1.6;
+}
+.btn{
   border:0;
   border-radius:18px;
-  padding:14px 20px;
-  margin:7px;
-  font-size:17px;
+  padding:16px 27px;
+  margin:12px;
   background:white;
-  box-shadow:0 5px 18px #8b6c8b30;
+  color:#8a125c;
+  font-size:17px;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:0 10px 25px #0007;
+}
+.btn:active{transform:scale(.94)}
+
+.wait{
+  color:#ffd2e8;
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{50%{opacity:.45}}
+
+.envelope{
+  font-size:110px;
+  cursor:pointer;
+  animation:fly 2.4s ease-in-out infinite;
+}
+@keyframes fly{
+  0%{opacity:0;transform:translateY(100px) rotate(-10deg)}
+  30%{opacity:1}
+  60%{transform:translateY(-10px) rotate(5deg)}
+  100%{transform:translateY(0)}
 }
 
-.teddy{
-  font-size:88px;
-  animation:bob 1.5s infinite;
+/* LETTER */
+.letter{
+  width:min(570px,95%);
+  background:#ead69b;
+  color:#111;
+  padding:30px 27px;
+  border:1px solid #a88a48;
+  border-radius:4px;
+  box-shadow:0 20px 50px #0009;
+  transform:rotate(-1deg);
+  font-family:Georgia,serif;
+  text-align:left;
 }
-
-@keyframes bob{
-  50%{
-    transform:translateY(-8px);
-  }
+.letter p{
+  color:#111;
+  font-family:Georgia,serif;
+  font-size:17px;
+  line-height:1.7;
 }
+.letter strong{color:#000}
 
-#magicCanvas{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
+/* GAME */
+.game{
+  width:min(650px,100%);
+  background:#8f1223;
+  border:4px solid #ffd0d5;
+  border-radius:25px;
+  padding:18px;
+  box-shadow:inset 0 0 45px #40000a;
 }
-
-.walker{
-  position:absolute;
-  bottom:18%;
-  left:-90px;
-  font-size:58px;
-  transition:left 2.2s ease;
-  z-index:2;
-}
-
-.walker.go{
-  left:calc(50% - 30px);
-}
-
-.magicTitle{
+.arena{
+  height:330px;
   position:relative;
-  font-size:50px;
-  font-weight:800;
+  overflow:hidden;
+  border-radius:18px;
+  background:radial-gradient(circle,#ff5555,#65000e);
+}
+.target{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:145px;
+  height:145px;
+  border-radius:50%;
+  background:#d71932;
+  border:6px solid white;
+  display:grid;
+  place-items:center;
+  font-size:24px;
+  font-weight:1000;
+  box-shadow:0 0 40px #ffbaba;
+}
+.drag{
+  position:absolute;
+  left:7%;
+  top:12%;
+  background:white;
+  color:#c4114c;
+  padding:16px 18px;
+  border-radius:17px;
+  font-weight:1000;
+  cursor:grab;
+  touch-action:none;
+  user-select:none;
+}
+
+/* HUMAN */
+.tinyHuman{
+  font-size:55px;
+  animation:walk .45s infinite alternate;
+}
+@keyframes walk{
+  to{transform:translateX(35px)}
+}
+
+/* UNIVERSE */
+.universe{
+  font-size:85px;
+  animation:universe 2s infinite;
+}
+@keyframes universe{
+  50%{transform:scale(1.15) rotate(5deg)}
+}
+
+/* NAME ANIMATION */
+.nameLetters{
+  display:flex;
+  gap:9px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+.nameLetters span{
+  font-size:clamp(48px,12vw,80px);
+  font-weight:1000;
+  color:#ff86c8;
+  text-shadow:0 0 20px #ff2d95;
   opacity:0;
-  text-shadow:0 0 18px white,0 0 30px #d77cff;
-  transition:opacity 1s;
+  animation:letterIn .7s forwards;
+}
+.nameLetters span:nth-child(1){animation-delay:.2s}
+.nameLetters span:nth-child(2){animation-delay:.7s}
+.nameLetters span:nth-child(3){animation-delay:1.2s}
+.nameLetters span:nth-child(4){animation-delay:1.7s}
+.nameLetters span:nth-child(5){animation-delay:2.2s}
+
+@keyframes letterIn{
+  from{opacity:0;transform:translateY(45px) scale(.5) rotate(-15deg)}
+  to{opacity:1;transform:none}
 }
 
-.hint{
-  position:relative;
-  margin-top:90px;
+.sorryFinal{
+  font-size:clamp(48px,12vw,88px);
+  font-weight:1000;
+  margin-top:25px;
+  color:white;
+  text-shadow:0 0 18px #ff62b1,0 0 45px #ff006f;
+  animation:popSorry 1s 3s both;
+}
+@keyframes popSorry{
+  from{opacity:0;transform:scale(3)}
+  to{opacity:1;transform:scale(1)}
 }
 
-.shayari{
-  font-size:18px;
-  line-height:1.65;
-}
-
-.heart{
-  position:absolute;
-  animation:float 4s linear forwards;
-}
-
-@keyframes float{
-  to{
-    transform:translateY(-110vh) rotate(25deg);
-    opacity:0;
-  }
+/* MOBILE */
+@media(max-width:450px){
+  .slide{padding-left:14px;padding-right:14px}
+  .arena{height:340px}
 }
 </style>
 </head>
 
 <body>
 
-<!-- SCREEN 1 -->
+<div class="app" id="app">
 
-<section class="screen active" id="s1">
+<!-- 1 -->
+<section class="slide active">
+<div class="brand">AARTI 🌸</div>
 
-  <div class="card">
+<div style="font-size:75px">🌸</div>
 
-    <div>🌸 ✨ 🌸 ✨ 🌸</div>
+<div class="title">
+RUKO<br>
+<span class="pink">DEVI JI...</span>
+</div>
 
-    <h1>HELLO AARTI 🌸</h1>
+<p>Ek chhoti si maafi mission hai...</p>
 
-    <p>
-      Ek chhota sa surprise tumhara wait kar raha hai ✨
-    </p>
+<button class="btn" data-next>
+START ✨
+</button>
+</section>
 
-    <button onclick="show('s2')">
-      Tap to Start 💖
-    </button>
 
-  </div>
+<!-- 2 -->
+<section class="slide">
+<div class="brand">AARTI 🌸</div>
+
+<div style="font-size:68px">🤫</div>
+
+<h2>Thoda ruk jao...</h2>
+
+<p class="wait">
+Abhi kuch mat karo.<br>
+Bas next moment ka wait karo...
+</p>
+
+<p>3... 2... 1...</p>
+
+<button class="btn" data-next>
+CONTINUE
+</button>
+</section>
+
+
+<!-- 3 -->
+<section class="slide">
+<div class="brand">AARTI 🌸</div>
+
+<h2>Ek surprise hai... 👀</h2>
+
+<p>
+Pehle screen ko thoda dhyaan se dekho.
+</p>
+
+<div style="font-size:70px">
+✨💌✨
+</div>
+
+<p class="wait">
+Kuch aa raha hai...
+</p>
+
+<button class="btn" data-next>
+DEKHO 👀
+</button>
+</section>
+
+
+<!-- 4 -->
+<section class="slide">
+<div class="brand">AARTI 🌸</div>
+
+<h2>📨 Ek khat...</h2>
+
+<div class="envelope">
+💌🪽
+</div>
+
+<p class="wait">
+Dheere-dheere fly karke aa raha hai...
+</p>
+
+<p>Abhi kholna nahi.</p>
+
+<button class="btn" data-next>
+WAIT ⏳
+</button>
+</section>
+
+
+<!-- 5 -->
+<section class="slide">
+<div class="brand">AARTI 🌸</div>
+
+<h2>Ab letter saamne hai.</h2>
+
+<div class="envelope" id="openLetter">
+💌
+</div>
+
+<p class="wait">
+Tap karogi toh khulega...
+</p>
+
+<small>TAP THE LETTER 👆</small>
+</section>
+
+
+<!-- 6 LETTER -->
+<section class="slide">
+<div class="brand">AARTI 🌸</div>
+
+<h2>💌 EK KHAT</h2>
+
+<div class="letter">
+
+<p><strong>Pyaari Aarti 🌸</strong></p>
+
+<p>
+Please maaf kar do... agar mujhse koi galti hui hai
+toh dil se sorry. ❤️
+</p>
+
+<p>
+Kabhi-kabhi baaton mein galti ho jaati hai,
+par mera intention tumhe hurt karna nahi tha.
+</p>
+
+<p>
+Bas pyaar se itna kehna tha —
+<strong>Babu yaar please 🥺</strong>
+</p>
+
+<p>
+<strong>
+Babu main bas normally bol raha hoon, theek hai?
+</strong>
+</p>
+
+<p>
+Gussa ho toh bhi theek hai,
+bas meri ye chhoti si maafi dekh lena. ❤️
+</p>
+
+</div>
+
+<button class="btn" data-next>
+CLOSE LETTER 💌
+</button>
+</section>
+
+
+<!-- 7 -->
+<section class="slide">
+<div class="brand">AARTI 🌸</div>
+
+<h2>Ab next mission... 🎮</h2>
+
+<p>
+Abhi story ka ek difficult level baaki hai.
+</p>
+
+<div style="font-size:65px">
+🎯
+</div>
+
+<button class="btn" data-next>
+MINI GAME
+</button>
+</section>
+
+
+<!-- 8 -->
+<section class="slide">
+<div class="brand">AARTI 🌸</div>
+
+<div class="game">
+
+<h2>🎯 TASK</h2>
+
+<p>
+<strong>
+SORRY button ko RED target ke bilkul CENTER mein match karo.
+</strong>
+</p>
+
+<p>
+⚠️ Kabhi-kabhi button fislega!
+</p>
+
+<button class="btn" id="gameStart">
+START GAME
+</button>
+
+</div>
+</section>
+
+
+<!-- 9 GAME -->
+<section class="slide">
+<div class="brand">AARTI 🌸</div>
+
+<div class="game">
+
+<p>
+<strong>
+JALDI! CENTER MATCH KARO 😭
+</strong>
+</p>
+
+<div class="arena" id="arena">
+
+<div class="target">
+SORRY ❤️
+</div>
+
+<div class="drag" id="drag">
+SORRY 😭
+</div>
+
+</div>
+
+<p id="status">
+Center ke paas lao...
+</p>
+
+</div>
+</section>
+
+
+<!-- 10 -->
+<section class="slide">
+<div class="brand">AARTI 🌸</div>
+
+<div style="font-size:70px">
+🎉❤️
+</div>
+
+<div class="title">
+ACCEPTED!
+</div>
+
+<p>
+Mini mission complete. 🙏
+</p>
+
+<button class="btn" data-next>
+AGLA...
+</button>
+</section>
+
+
+<!-- 11 SMALL HUMAN -->
+<section class="slide">
+<div class="brand">AARTI 🌸</div>
+
+<div class="tinyHuman">
+🚶
+</div>
+
+<p>
+Ek tiny human aa gaya...
+</p>
+
+<p class="wait">
+Bas thoda sa walk...
+</p>
+
+<button class="btn" id="exitUniverse">
+TAP TO EXIT THE UNIVERSE 🌌
+</button>
+</section>
+
+
+<!-- 12 -->
+<section class="slide">
+<div class="brand">AARTI 🌸</div>
+
+<div class="universe">
+🌌✨
+</div>
+
+<h2>
+UNIVERSE EXITED...
+</h2>
+
+<p class="wait">
+Ab sirf ek naam bacha hai...
+</p>
+
+<button class="btn" data-next>
+CONTINUE
+</button>
+</section>
+
+
+<!-- 13 A -->
+<section class="slide">
+<div class="brand">AARTI 🌸</div>
+
+<div class="nameLetters">
+<span>A</span>
+</div>
 
 </section>
 
 
-<!-- SCREEN 2 : MOOD -->
+<!-- 14 AA -->
+<section class="slide">
+<div class="brand">AARTI 🌸</div>
 
-<section class="screen" id="s2">
-
-  <div class="card">
-
-    <h1>🌸 How's your mood? 🌸</h1>
-
-    <button onclick="mood('happy')">
-      😊 Happy
-    </button>
-
-    <button onclick="mood('normal')">
-      🙂 Normal
-    </button>
-
-    <button onclick="mood('angry')">
-      😤 Angry
-    </button>
-
-    <button onclick="mood('bad')">
-      😶 Mood Kharab
-    </button>
-
-    <p id="moodText"></p>
-
-    <!-- YE BUTTON TAB TAK RAHEGA JAB TAK USER NEXT NA DABAYE -->
-
-    <button
-      id="moodNext"
-      style="display:none"
-      onclick="show('s3')">
-
-      Next ✨
-
-    </button>
-
-  </div>
+<div class="nameLetters">
+<span>A</span>
+<span>A</span>
+</div>
 
 </section>
 
 
-<!-- SCREEN 3 : TEDDY -->
+<!-- 15 AAR -->
+<section class="slide">
+<div class="brand">AARTI 🌸</div>
 
-<section class="screen" id="s3">
-
-  <div class="card">
-
-    <div class="teddy">
-      🧸
-    </div>
-
-    <h1>AARTI</h1>
-
-    <div style="font-size:32px">
-      ❤️ 💖 ❤️
-    </div>
-
-    <p>
-      A little surprise... ✨
-    </p>
-
-    <button onclick="show('s4');startMagic()">
-      Continue ✨
-    </button>
-
-  </div>
+<div class="nameLetters">
+<span>A</span>
+<span>A</span>
+<span>R</span>
+</div>
 
 </section>
 
 
-<!-- SCREEN 4 : MAGIC -->
+<!-- 16 AART -->
+<section class="slide">
+<div class="brand">AARTI 🌸</div>
 
-<section class="screen" id="s4">
-
-  <canvas id="magicCanvas"></canvas>
-
-  <div
-    class="walker"
-    id="walker">
-    🚶‍♂️
-  </div>
-
-  <div
-    class="magicTitle"
-    id="magicTitle">
-    AARTI ✨
-  </div>
-
-  <p class="hint">
-    ✨ Magic is writing your name... ✨
-  </p>
-
-  <button
-    style="position:absolute;bottom:7%;z-index:4"
-    onclick="show('s5')">
-
-    Next 🌙
-
-  </button>
+<div class="nameLetters">
+<span>A</span>
+<span>A</span>
+<span>R</span>
+<span>T</span>
+</div>
 
 </section>
 
 
-<!-- SCREEN 5 : TUM CHAND HO -->
+<!-- 17 AARTI -->
+<section class="slide">
+<div class="brand">AARTI 🌸</div>
 
-<section class="screen" id="s5">
-
-  <div class="card">
-
-    <div style="font-size:65px">
-      🌙
-    </div>
-
-    <h1>
-      TUM CHAND HO ✨
-    </h1>
-
-    <p class="shayari">
-
-      Kuch naam bas naam nahi hote,<br>
-
-      woh yaadon ki ek pyari si wajah ban jaate hain…<br><br>
-
-      Aarti, tumhari ek smile ke liye<br>
-
-      ye chhota sa surprise bhi kam laga. 🌸<br><br>
-
-      Tum chand ho—aur chand ko kisi wajah ki
-      zaroorat nahi hoti chamakne ke liye. ✨
-
-    </p>
-
-    <button onclick="show('s6');hearts()">
-
-      Final Surprise ❤️
-
-    </button>
-
-  </div>
+<div class="nameLetters">
+<span>A</span>
+<span>A</span>
+<span>R</span>
+<span>T</span>
+<span>I</span>
+</div>
 
 </section>
 
 
-<!-- SCREEN 6 : FINAL -->
+<!-- 18 FINAL -->
+<section class="slide">
+<div class="brand">AARTI 🌸</div>
 
-<section class="screen" id="s6">
+<div class="nameLetters">
+<span>A</span>
+<span>A</span>
+<span>R</span>
+<span>T</span>
+<span>I</span>
+</div>
 
-  <div class="card">
+<div class="sorryFinal">
+SORRY ❤️
+</div>
 
-    <div style="font-size:40px">
-      ✨ ❤️ 💖 🌸 💖 ❤️ ✨
-    </div>
-
-    <h1>
-      AARTI 🌸
-    </h1>
-
-    <h2>
-      Tum Chand Ho ✨
-    </h2>
-
-    <p>
-      Hamesha khush rehna ❤️
-    </p>
-
-    <p>
-      — Daksh
-    </p>
-
-    <div style="font-size:34px">
-      ✨ 💖 ❤️ 💖 ✨
-    </div>
-
-  </div>
+<p>
+Mission Complete.
+</p>
 
 </section>
+
+</div>
 
 
 <script>
 
-/* SCREEN CHANGE */
+const app=document.getElementById("app");
+const slides=[...document.querySelectorAll(".slide")];
 
-function show(id){
+let current=0;
 
-  document
-    .querySelectorAll('.screen')
-    .forEach(x => x.classList.remove('active'));
+function showSlide(index){
 
-  document
-    .getElementById(id)
-    .classList.add('active');
+current=index;
 
-}
+slides.forEach((slide,i)=>{
+slide.classList.toggle("active",i===current);
+});
 
-
-/* MOOD SYSTEM */
-
-function mood(t){
-
-  let x =
-    document.getElementById('moodText');
-
-  let messages = {
-
-    happy:
-      'Yayyy! 😊 Isi smile ko maintain rakho 🌸',
-
-    normal:
-      'Normal mood bhi chalega 😄 Surprise abhi baaki hai...',
-
-    angry:
-      'Kyun gussa ho? 😭 Thoda sa smile kar lo na 🌸',
-
-    bad:
-      'Mood kharab hai? Chalo topic change — surprise dekho ✨'
-
-  };
-
-  x.textContent = messages[t];
-
-  /*
-    IMPORTANT:
-    Message automatically hide NAHI hoga.
-    Next button manually press karne par hi
-    next screen khulegi.
-  */
-
-  document
-    .getElementById('moodNext')
-    .style.display = 'inline-block';
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
 
 }
 
 
-/* MAGIC ANIMATION */
+/* NEXT BUTTONS */
 
-let started = false;
+document.querySelectorAll("[data-next]")
+.forEach(button=>{
 
-function startMagic(){
+button.addEventListener("click",()=>{
 
-  if(started) return;
+showSlide(current+1);
 
-  started = true;
+});
 
-  let canvas =
-    document.getElementById('magicCanvas');
-
-  let ctx =
-    canvas.getContext('2d');
+});
 
 
-  function size(){
+/* LETTER */
 
-    canvas.width = innerWidth;
-    canvas.height = innerHeight;
+document.getElementById("openLetter")
+.addEventListener("click",()=>{
 
-  }
+showSlide(5);
 
-  size();
-
-  addEventListener(
-    'resize',
-    size
-  );
+});
 
 
-  let particles = [];
+/* GAME START */
+
+document.getElementById("gameStart")
+.addEventListener("click",()=>{
+
+showSlide(8);
+
+});
 
 
-  for(let i = 0; i < 90; i++){
+/* EXIT UNIVERSE */
 
-    particles.push({
+document.getElementById("exitUniverse")
+.addEventListener("click",()=>{
 
-      x:Math.random()*innerWidth,
+showSlide(11);
 
-      y:Math.random()*innerHeight,
-
-      vx:(Math.random()-.5)*1.5,
-
-      vy:1+Math.random()*2,
-
-      s:2+Math.random()*5,
-
-      a:Math.random()*6,
-
-      h:Math.random()*360
-
-    });
-
-  }
+});
 
 
-  function loop(){
+/* MINI GAME */
 
-    ctx.clearRect(
-      0,
-      0,
-      canvas.width,
-      canvas.height
-    );
+const arena=document.getElementById("arena");
+const drag=document.getElementById("drag");
+const target=document.querySelector(".target");
+const status=document.getElementById("status");
 
-
-    particles.forEach(o => {
-
-      o.y += o.vy;
-
-      o.x += o.vx;
-
-      o.a += .04;
+let dragging=false;
+let offsetX=0;
+let offsetY=0;
 
 
-      if(o.y > canvas.height + 10){
+drag.addEventListener("pointerdown",(e)=>{
 
-        o.y = -10;
+dragging=true;
 
-        o.x =
-          Math.random()*canvas.width;
+drag.setPointerCapture(e.pointerId);
 
-      }
+const rect=drag.getBoundingClientRect();
 
+offsetX=e.clientX-rect.left;
+offsetY=e.clientY-rect.top;
 
-      ctx.save();
-
-      ctx.translate(o.x,o.y);
-
-      ctx.rotate(o.a);
-
-      ctx.fillStyle =
-        `hsl(${o.h},90%,65%)`;
-
-      ctx.fillRect(
-        -o.s/2,
-        -o.s/2,
-        o.s,
-        o.s*1.8
-      );
-
-      ctx.restore();
-
-    });
+});
 
 
-    requestAnimationFrame(loop);
+drag.addEventListener("pointermove",(e)=>{
 
-  }
+if(!dragging)return;
 
-  loop();
+const area=arena.getBoundingClientRect();
+
+let x=e.clientX-area.left-offsetX;
+let y=e.clientY-area.top-offsetY;
+
+x=Math.max(
+0,
+Math.min(area.width-drag.offsetWidth,x)
+);
+
+y=Math.max(
+0,
+Math.min(area.height-drag.offsetHeight,y)
+);
+
+drag.style.left=x+"px";
+drag.style.top=y+"px";
 
 
-  /* WALKING CHARACTER */
+/* RANDOM SLIP */
 
-  setTimeout(() => {
+if(Math.random()<0.025){
 
-    document
-      .getElementById('walker')
-      .classList.add('go');
+drag.style.transform="rotate(13deg)";
 
-  },300);
+setTimeout(()=>{
 
+drag.style.transform="";
 
-  /* AARTI NAME APPEARS */
-
-  setTimeout(() => {
-
-    document
-      .getElementById('magicTitle')
-      .style.opacity = 1;
-
-  },2300);
+},180);
 
 }
 
-
-/* FINAL FLOATING HEARTS */
-
-function hearts(){
-
-  for(let i=0;i<28;i++){
-
-    let e =
-      document.createElement('div');
-
-    e.className = 'heart';
-
-    e.textContent =
-      ['❤️','💖','💗','✨','🌸']
-      [Math.floor(Math.random()*5)];
-
-    e.style.left =
-      Math.random()*100+'vw';
-
-    e.style.bottom =
-      '-30px';
-
-    e.style.fontSize =
-      18+Math.random()*25+'px';
-
-    e.style.animationDelay =
-      Math.random()*2+'s';
-
-    document.body.appendChild(e);
+});
 
 
-    setTimeout(() => {
+drag.addEventListener("pointerup",()=>{
 
-      e.remove();
+if(!dragging)return;
 
-    },5000);
+dragging=false;
 
-  }
+const d=drag.getBoundingClientRect();
+const t=target.getBoundingClientRect();
+
+const dx=
+(d.left+d.width/2)-
+(t.left+t.width/2);
+
+const dy=
+(d.top+d.height/2)-
+(t.top+t.height/2);
+
+const distance=Math.sqrt(
+dx*dx+dy*dy
+);
+
+
+if(distance<75){
+
+showSlide(9);
+
+}else{
+
+status.innerText=
+"😂 FISAL GAYA! Center ke aur paas lao!";
+
+drag.style.left=
+(5+Math.random()*65)+"%";
+
+drag.style.top=
+(8+Math.random()*70)+"%";
 
 }
+
+});
 
 </script>
 
